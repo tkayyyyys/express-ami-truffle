@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title> MetaNarrative </title>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+
+  <!-- Bootstrap -->
+  <!--<link href="css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/lux/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+
+
+      body {
+     background: linear-gradient(to left, grey, white) !important;
+    /*background: white !important; */ /* For browsers that do not support gradients */
+        } 
+        .card-body { background: white;}
+        h6, .h6 {text-align-last: right;}
+
+  /*    iframe {
+        height: 40px;
+        min-height : 40px;
+      }
+
+      .popover {
+          max-width: 400px;
+      }
+*/
+    </style>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!--<script src="js/bootstrap.min.js"></script> -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+  /*
+  function adjustPopover(popover, iframe) {
+  var height = iframe.contentWindow.document.body.scrollHeight + 'px',
+    popoverContent = $(popover).next('.popover-content');
+
+    iframe.style.height=height;
+    popoverContent.css('height', height);
+  }
+  */
+   //$("[data-toggle=popover]").popover();
+    window.popover();
+   </script>
+
+  </head>
+  <body>
+   <!-- <div class="jumbotron"> -->
+    <h1>BlockChain Narrative</h1>
+
+    <h3>There are <span class="black"><span id="balance"></span> stories saved on the Ethereum blockchain</span></h3>
+
+    <!-- <iframe src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe> -->
+
+   <!-- <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" aria-describedby="popover386848">Bottom</button>
+    -->
+
+    <!-- <a href="#" class="btn btn-small pull-left pop-right" data-toggle="popover" data-content="" >View Property</a> -->
+
+    <!-- works -->
+     <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe>
+    </div>
+    <!-- -->
+
+   <!-- CSS remove "fade"
+     <button type="button" class="btn btn-lg btn-danger" 
+        data-toggle="popover" title="Popover title" 
+        data-content="And here's some amazing content. It's very engaging. Right?">
+      Click to toggle popover
+    </button>
+  -->
+
+    <!-- <button id="example" type="button" class="btn btn-lg btn-danger" 
+        data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
+      Click to toggle popover
+    </button>
+  -->
+
+    <div id="individual-story-text"> 
+     <!-- RETURN NARRATIVE TEXT -->
+   </div>
+
+   
+
+   <div class="modal-body row">
+    
+
+    <div class="col-md-6">
+
+     <!-- <br> -->
+     <fieldset>
+        <legend>Add to narrative:</legend>
+      <!-- <textarea type="textarea" rows="20" cols="85" id="narrativeText" placeholder="HOLY MOLY HAM NAD BALONY"></textarea> -->
+        <textarea type="textarea" class="form-control" rows="20" id="narrativeText" placeholder="Contribute to the story, by typing here."></textarea>
+     </fieldset>
+    
+     <br><br><button class="btn btn-default btn-contribute" type="button">Contribute</button>
+      Cost to Contribute: <span id="gas-cost-estimate"></span>
+     <br><br>
+
+     <!-- retrive DEBUG -->
+    <!--  <h3>Retrieve story number:</h3>
+     <br><label for="retrieveCode">Code:</label><input type="input" id="retrieveCode" placeholder="1"></input> 
+     <br><br><button class="btn btn-default btn-retrieve-code" type="button">Retrieve</button>
+     <br><br>
+    -->
+
+
+   </div>
+
+   <div class="col-md-6"" >
+    
+    <fieldset>
+     <legend>The Story so far:</legend>
+     <!-- <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date"></h6>
+     <h6 class="card-title align-right" id="narrative-main-address"></h6> -->
+     <!--  <div id="returnedDateText"> --> 
+      <!-- RETURN NARRATIVE TEXT -->
+     <!-- </div> -->
+     <div id="returnedNarrativeText"> 
+      <!-- RETURN NARRATIVE TEXT -->
+    </div>
+    </fieldset>
+<!-- border-primary -->
+     <div class="card text-white bg-info mb-3" id="storyTemplate" style="max-width: 20rem; display: none;">
+        <div class="card-body">
+           <!-- <div class="card-header">Header</div> -->
+           
+          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date"></h6>
+          <h6 class="card-title align-right" id="narrative-main-address"></h6>
+          
+          <!-- <strong>address:</strong> -->
+          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
+          <p class="card-text" id="narrative-main-text"></p>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+<span id="about"><strong>What is this?</strong> This is a smart contract which runs on the Ethereum blockchain to facilitate a collaborative narrative. </span>
+<br>
+
+<span id="status"></span>
+<br>
+<span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
+
+<!-- </div> -->
+
+
+
+<script src="js/web3.min.js"></script>
+<script src="js/truffle-contract.js"></script> 
+<script src="js/app.js"></script>
+
+<script type="text/javascript">
+  /*
+  function adjustPopover(popover, iframe) {
+  var height = iframe.contentWindow.document.body.scrollHeight + 'px',
+    popoverContent = $(popover).next('.popover-content');
+
+    iframe.style.height=height;
+    popoverContent.css('height', height);
+  }
+  */
+ //  $("[data-toggle=popover]").popover();
+ 
+  $(document).ready(function() {
+
+    //TODO: get tooltips to work!
+
+    $('#example').tooltip({title : 'Loading External File'});
+   /* $("[data-toggle=popover]").popover(
+       title : 'Loading External File',
+       html : true,
+       placement : "right",
+       content: function() {
+           return 'BLERG';
+
+           //' <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe></div>';
+
+          // '<iframe src="/css/normalize.css" style="border:none" onload="adjustPopover(&quot;.pop-right&quot;, this);">'+
+           //       '</iframe>';    
+           }
+    }
+
+
+      );
+      */
+      //alert("YES");
+   /*$('.pop-right').popover({ 
+       title : 'Loading External File',
+       html : true,
+       placement : "right",
+       content: function() {
+           return 'BLERG';
+
+           //' <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe></div>';
+
+          // '<iframe src="/css/normalize.css" style="border:none" onload="adjustPopover(&quot;.pop-right&quot;, this);">'+
+           //       '</iframe>';    
+           }
+    });
+    */
+  });
+
+</script>
+
+
+</body>
+</html>
