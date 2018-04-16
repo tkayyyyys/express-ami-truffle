@@ -2,13 +2,17 @@
 $(document).ready(function () {
   var curraccount;
   var selectedAccount;
-  $.get('/getAccounts', function (response) {
-    for(let i = 0; i < response.length; i++){
-      curraccount = response[i];
-      $('#options').append("<option value='"+curraccount+"'>"+curraccount+"</option>");
-    }
+  //alert("YE");
+ $.get('/getAccounts', function (response) {
+    console.dir(response);
+    console.log(" GET ACCOUNTS! : " + response.length);
+    //for(let i = 0; i < response.length; i++){
+    //  curraccount = response[i];
+    //  $('#options').append("<option value='"+curraccount+"'>"+curraccount+"</option>");
+   // }
   })
-
+  
+/*
   $('#submit').click(function () {
     selectedAccount = $('#options').val();
     console.log(selectedAccount);
@@ -29,7 +33,31 @@ $(document).ready(function () {
 
     })
   })
+  */
 
+   $('.btn-contribute').click(function () {
+    //$('#status').text("Sending...");
+     //var narrativeText = document.getElementById("narrativeText");
+     let narrativeText = $('#narrativeText').val();
+     //alert("HERE");
+    $.post('/contribute', {narrative: narrativeText}, function (response) {
+      console.log(response);
+      console.log("SENT");
+      //$('#balance').text(response);
+      //$('#status').text("Sent!!");
+    })
+
+    // alert("narrativeText" + narrativeText);
+   /* let amount = $('#amount').val();
+    let receiver = $('#receiver').val();
+    $.post('/sendCoin', {amount : amount, sender : selectedAccount, receiver : receiver}, function (response) {
+      $('#balance').text(response);
+      $('#status').text("Sent!!");
+    })*/
+
+  });
+
+ /*
   $('#send').click(function () {
     $('#status').text("Sending...");
     let amount = $('#amount').val();
@@ -38,5 +66,7 @@ $(document).ready(function () {
       $('#balance').text(response);
       $('#status').text("Sent!!");
     })
+
   });
+  */
 })

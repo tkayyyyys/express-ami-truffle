@@ -22,21 +22,24 @@
 
 
       body {
-     background: linear-gradient(to left, grey, white) !important;
-    /*background: white !important; */ /* For browsers that do not support gradients */
-        } 
+             background: linear-gradient(to left, grey, white) !important;
+            /*background: white !important; */ /* For browsers that do not support gradients */
+                } 
         .card-body { background: white;}
+
         h6, .h6 {text-align-last: right;}
 
-  /*    iframe {
-        height: 40px;
-        min-height : 40px;
-      }
+      img.sticky {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
+          width: 200px;
+       }
+        img{
+          float:right!important;
+        }
 
-      .popover {
-          max-width: 400px;
-      }
-*/
+
     </style>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -45,54 +48,39 @@
     <!--<script src="js/bootstrap.min.js"></script> -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-  /*
-  function adjustPopover(popover, iframe) {
-  var height = iframe.contentWindow.document.body.scrollHeight + 'px',
-    popoverContent = $(popover).next('.popover-content');
-
-    iframe.style.height=height;
-    popoverContent.css('height', height);
-  }
-  */
-   //$("[data-toggle=popover]").popover();
-    window.popover();
-   </script>
-
   </head>
   <body>
    <!-- <div class="jumbotron"> -->
-    <h1>BlockChain Narrative</h1>
+    <!-- <h1>BlockChain Narrative</h1>
 
     <h3>There are <span class="black"><span id="balance"></span> stories saved on the Ethereum blockchain</span></h3>
+  -->
 
-    <!-- <iframe src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe> -->
-
-   <!-- <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" aria-describedby="popover386848">Bottom</button>
-    -->
-
-    <!-- <a href="#" class="btn btn-small pull-left pop-right" data-toggle="popover" data-content="" >View Property</a> -->
+   <!-- <div class=""> -->
+    <!-- <div class="row"> -->
+    <!-- <div class="col fixed-top float-xs-right"> -->
+   <div class="row float-xs-right sticky-top">
+      <img class="img-responsive float-xs-right" src="img/deleb.png" alt="deleb" style="width:10%;height:10%;">
+      <img class="img-responsive float-xs-right" src="img/deleb_arms.png" alt="deleb_arms" style="width:10%;height:10%;">
+   </div>
+   <!-- </div> --> 
+  <!--  </div> -->
 
     <!-- works -->
+    <div class="row">
+    <!-- <p style="align-items:center"> -->
+    <a href="print.html" onclick="window.open('invisionapp.html', 
+                         'newwindow', 
+                         'width=800,height=650'); 
+              return false;" id="invisionapp-popup">Invision App</a>
+    <!--  </p> -->  
+    </div>        
+      <!--        
      <div class="embed-responsive embed-responsive-16by9">
       <iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe>
-    </div>
+    </div> -->
     <!-- -->
 
-   <!-- CSS remove "fade"
-     <button type="button" class="btn btn-lg btn-danger" 
-        data-toggle="popover" title="Popover title" 
-        data-content="And here's some amazing content. It's very engaging. Right?">
-      Click to toggle popover
-    </button>
-  -->
-
-    <!-- <button id="example" type="button" class="btn btn-lg btn-danger" 
-        data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
-      Click to toggle popover
-    </button>
-  -->
 
     <div id="individual-story-text"> 
      <!-- RETURN NARRATIVE TEXT -->
@@ -137,6 +125,60 @@ sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover 
      <!-- </div> -->
      <div id="returnedNarrativeText"> 
       <!-- RETURN NARRATIVE TEXT -->
+
+      <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
+        <div class="card-body">
+           <!-- <div class="card-header">Header</div> -->
+           
+          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
+          <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
+          
+          <!-- <strong>address:</strong> -->
+          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
+          <p class="card-text" id="narrative-main-text">
+            Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+          </p>
+        </div>
+    </div>
+
+     <!-- -->
+
+     <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
+        <div class="card-body">
+           <!-- <div class="card-header">Header</div> -->
+           
+          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
+          <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
+          
+          <!-- <strong>address:</strong> -->
+          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
+          <p class="card-text" id="narrative-main-text">
+            Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+          </p>
+        </div>
+    </div>
+    <!-- -->
+
+     <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
+        <div class="card-body">
+           <!-- <div class="card-header">Header</div> -->
+           
+          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
+          <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
+          
+          <!-- <strong>address:</strong> -->
+          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
+          <p class="card-text" id="narrative-main-text">
+            Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+          </p>
+        </div>
+    </div>
+
+    <!-- -->
+
+
+
+
     </div>
     </fieldset>
 <!-- border-primary -->
@@ -169,9 +211,10 @@ sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover 
 
 
 
-<script src="js/web3.min.js"></script>
+<!-- <script src="js/web3.min.js"></script>
 <script src="js/truffle-contract.js"></script> 
-<script src="js/app.js"></script>
+<script src="js/app.js"></script> -->
+<script src="javascript/accounts.js"></script>
 
 <script type="text/javascript">
   /*
@@ -185,44 +228,13 @@ sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover 
   */
  //  $("[data-toggle=popover]").popover();
  
-  $(document).ready(function() {
+ /* $(document).ready(function() {
 
     //TODO: get tooltips to work!
 
-    $('#example').tooltip({title : 'Loading External File'});
-   /* $("[data-toggle=popover]").popover(
-       title : 'Loading External File',
-       html : true,
-       placement : "right",
-       content: function() {
-           return 'BLERG';
+  //  $('#example').tooltip({title : 'Loading External File'});
 
-           //' <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe></div>';
-
-          // '<iframe src="/css/normalize.css" style="border:none" onload="adjustPopover(&quot;.pop-right&quot;, this);">'+
-           //       '</iframe>';    
-           }
-    }
-
-
-      );
-      */
-      //alert("YES");
-   /*$('.pop-right').popover({ 
-       title : 'Loading External File',
-       html : true,
-       placement : "right",
-       content: function() {
-           return 'BLERG';
-
-           //' <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe></div>';
-
-          // '<iframe src="/css/normalize.css" style="border:none" onload="adjustPopover(&quot;.pop-right&quot;, this);">'+
-           //       '</iframe>';    
-           }
-    });
-    */
-  });
+  });*/
 
 </script>
 
