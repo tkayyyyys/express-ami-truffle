@@ -44,14 +44,36 @@ app.post('/getBalance', (req, res) => {
 // Should happen by default.
 app.get('/getAccounts', (req, res) => {
   console.log("**** GET /getAccounts START ****");
+  
   truffle_connect.start(function (answer) {
-    res.send(answer);
+   // res.send(answer);
   });
 
-  console.log(" NOW LOAD THE NARRATIVE");
-  truffle_connect. refreshNarrative(function (answer) {
-    res.send(answer);
+  console.log(" ****** NOW LOAD THE NARRATIVE ******");
+  var narrativelength;
+  
+  // refresh narrative should return an array.. I guess.
+  truffle_connect.refreshNarrative(function (answer) {
+  
+    console.log(" +++++++ answer: " + answer);
+    console.dir(answer);
+   // narrativelength = answer;
+   res.send(answer);
+        // This doesn't work. Cannot have individual items sent via callback. Must be an array.
+        /*
+
+         for (var i = 0; i < narrativelength; i++) {
+           //console.log("in loop " + i);
+            truffle_connect.retrieveStoryItem(i, function (answer) {
+                //narrativelength = answer;
+                //res.send(answer);
+                console.log(" i = " + i + "answer" + answer);
+                res.send(answer);
+            });
+         }
+         */
   })
+  //console.log("narrativelength: " + narrativelength);
 });
 
 app.post('/contribute', (req, res) => {
@@ -76,8 +98,12 @@ app.post('/contribute', (req, res) => {
 });
 
 app.listen(port, () => {
+
+  // Maybe contract should be found AND loaded here?! When server starts!! IDK..
   console.log("IN APP.LISTEN");
 
+  // Move this to clientside..? on pg 'load'
+/*
   if (typeof web3 !== 'undefined') {
     console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")
     // Use Mist/MetaMask's provider
@@ -87,6 +113,7 @@ app.listen(port, () => {
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     truffle_connect.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
   }
+  */
   console.log("Express Listening at http://localhost:" + port);
 
 });

@@ -4,8 +4,22 @@ $(document).ready(function () {
   var selectedAccount;
   //alert("YE");
  $.get('/getAccounts', function (response) {
-    console.dir(response);
-    console.log(" GET ACCOUNTS! : " + response.length);
+    console.dir(" RESPONSE TO CLIENT: " + response);
+    
+
+      var storyTemplate = $('#storyTemplate');
+      var narrativeRow = $('#returnedNarrativeText');
+
+      for(let i = 0; i < response.length; i++){
+        console.log(i + "response i: " + response[i]);
+        storyTemplate.find('#narrative-main-text').text(response[i]);
+     //   storyTemplate.find('#narrative-main-text').text(value[2].valueOf());
+     //   storyTemplate.find('#narrative-main-date').text(date.toLocaleString('en-us', options));
+     //   storyTemplate.find('#narrative-main-address').text(value[3].valueOf());
+        narrativeRow.append(storyTemplate.html());
+      }
+   
+    //console.log("CLIENT RESPONSE GET ACCOUNTS! : " + response.length);
     //for(let i = 0; i < response.length; i++){
     //  curraccount = response[i];
     //  $('#options').append("<option value='"+curraccount+"'>"+curraccount+"</option>");

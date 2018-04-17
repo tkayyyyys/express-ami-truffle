@@ -25,9 +25,9 @@
              background: linear-gradient(to left, grey, white) !important;
             /*background: white !important; */ /* For browsers that do not support gradients */
                 } 
-        .card-body { background: white;}
+      .card-body { background: white;}
 
-        h6, .h6 {text-align-last: right;}
+      h6, .h6 {text-align-last: right;}
 
       img.sticky {
           position: -webkit-sticky;
@@ -35,10 +35,28 @@
           top: 0;
           width: 200px;
        }
+       
+       .sticky-top{
+        margin-top:20px!important;
+       }
+
         img{
           float:right!important;
         }
+        fieldset{
+          width:100%!important;
+        }
 
+        div#link-row {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        div#top-row {
+            top-margin: 100px;
+            margin-top: 86px;
+            margin-bottom: 50px;
+        }
 
     </style>
 
@@ -50,59 +68,69 @@
 
   </head>
   <body>
-   <!-- <div class="jumbotron"> -->
-    <!-- <h1>BlockChain Narrative</h1>
-
-    <h3>There are <span class="black"><span id="balance"></span> stories saved on the Ethereum blockchain</span></h3>
-  -->
-
-   <!-- <div class=""> -->
-    <!-- <div class="row"> -->
-    <!-- <div class="col fixed-top float-xs-right"> -->
-   <div class="row float-xs-right sticky-top">
+   
+ 
+   <div class="float-xs-right sticky-top">
       <img class="img-responsive float-xs-right" src="img/deleb.png" alt="deleb" style="width:10%;height:10%;">
       <img class="img-responsive float-xs-right" src="img/deleb_arms.png" alt="deleb_arms" style="width:10%;height:10%;">
    </div>
-   <!-- </div> --> 
-  <!--  </div> -->
-
-    <!-- works -->
-    <div class="row">
-    <!-- <p style="align-items:center"> -->
-    <a href="print.html" onclick="window.open('invisionapp.html', 
-                         'newwindow', 
-                         'width=800,height=650'); 
-              return false;" id="invisionapp-popup">Invision App</a>
-    <!--  </p> -->  
-    </div>        
-      <!--        
-     <div class="embed-responsive embed-responsive-16by9">
-      <iframe class="embed-responsive-item" src="https://projects.invisionapp.com/freehand/document/7VY7sGgUi"></iframe>
-    </div> -->
-    <!-- -->
 
 
+    <div class="modal-body">
+
+   
+   <!-- REMOVE  ??-->
     <div id="individual-story-text"> 
      <!-- RETURN NARRATIVE TEXT -->
    </div>
 
    
 
-   <div class="modal-body row">
-    
+  
+   <div class="container"> 
 
-    <div class="col-md-6">
 
-     <!-- <br> -->
+    <div class="container">
+    <!-- <div class="row"><br></div> -->
+    <div class="row" id="top-row">
+      <br>
+       <div class="col-xs-6 col-sm-6 col-md-6">          
+            <!-- <br><br> -->
+             <a href="print.html" onclick="window.open('invisionapp.html', 
+                                         'newwindow', 
+                                         'width=800,height=650'); 
+                              return false;" id="invisionapp-popup">Click to Collaborate with Invision App</a>
+           
+       </div>
+       <div class="col-xs-6 col-sm-6 col-md-6">
+            <!-- <a href=""> Archive </a> -->
+           
+       </div>
+   </div>
+
      <fieldset>
         <legend>Add to narrative:</legend>
       <!-- <textarea type="textarea" rows="20" cols="85" id="narrativeText" placeholder="HOLY MOLY HAM NAD BALONY"></textarea> -->
-        <textarea type="textarea" class="form-control" rows="20" id="narrativeText" placeholder="Contribute to the story, by typing here."></textarea>
+        <textarea type="textarea" class="form-control" rows="10" id="narrativeText" placeholder="Contribute to the story, by typing here."></textarea>
      </fieldset>
     
-     <br><br><button class="btn btn-default btn-contribute" type="button">Contribute</button>
-      Cost to Contribute: <span id="gas-cost-estimate"></span>
-     <br><br>
+
+   <div class="container">
+    <!-- <div class="row"><br></div> -->
+    <div class="row" id="link-row">
+      <br>
+       <div class="col-xs-6 col-sm-6 col-md-6">          
+            <!-- <br><br> -->
+            <button class="btn btn-default btn-contribute" type="button">Contribute</button>
+       </div>
+       <div class="col-xs-6 col-sm-6 col-md-6">
+              Cost to Contribute: <span id="gas-cost-estimate"></span>
+            <!-- <br><br> -->
+       </div>
+   </div>
+
+     
+    
 
      <!-- retrive DEBUG -->
     <!--  <h3>Retrieve story number:</h3>
@@ -112,9 +140,9 @@
     -->
 
 
-   </div>
+  <!-- </div>
 
-   <div class="col-md-6"" >
+   <div class="col-md-6"" > -->
     
     <fieldset>
      <legend>The Story so far:</legend>
@@ -194,10 +222,12 @@
           <p class="card-text" id="narrative-main-text"></p>
         </div>
     </div>
-</div>
+
+<!-- </div> -->
 
 
 </div>
+
 
 
 <span id="about"><strong>What is this?</strong> This is a smart contract which runs on the Ethereum blockchain to facilitate a collaborative narrative. </span>
@@ -208,35 +238,9 @@
 <span class="hint"><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</span>
 
 <!-- </div> -->
+</div> <!-- container-->
 
-
-
-<!-- <script src="js/web3.min.js"></script>
-<script src="js/truffle-contract.js"></script> 
-<script src="js/app.js"></script> -->
 <script src="javascript/accounts.js"></script>
-
-<script type="text/javascript">
-  /*
-  function adjustPopover(popover, iframe) {
-  var height = iframe.contentWindow.document.body.scrollHeight + 'px',
-    popoverContent = $(popover).next('.popover-content');
-
-    iframe.style.height=height;
-    popoverContent.css('height', height);
-  }
-  */
- //  $("[data-toggle=popover]").popover();
- 
- /* $(document).ready(function() {
-
-    //TODO: get tooltips to work!
-
-  //  $('#example').tooltip({title : 'Loading External File'});
-
-  });*/
-
-</script>
 
 
 </body>

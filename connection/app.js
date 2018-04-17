@@ -1,19 +1,55 @@
 const contract = require('truffle-contract');
+const Web3 = require('web3');
 
 //const metacoin_artifact = require('../build/contracts/MetaCoin.json');
 const narrative_artifact = require('../build/contracts/narrativeChainy.json');
 var MetaNarrativeArtifact = contract(narrative_artifact);
 
+
 module.exports = {
   start: function(callback) {
     var self = this;
-    console.log("connection/app.js START");
+    console.log("INSIDE connection/app.js START");
+    // -- I think this should connect to the contract!
+
+
+    /*// Set gas limits...
+      // THink this needs to be moved.. / fixed somewhere..
+
+      //------- self.account in particular.
+      var gasMinimum = self.web3.toWei(2, 'gwei');
+      MetaNarrativeArtifact.defaults({
+            from: self.account,
+            gas: 4712388,
+            gasPrice: gasMinimum
+        });
+      //------
+      //self.refreshNarrative();
+      */
+
+    // Move this into client side, I think!!
+    if (typeof self.web3 !== 'undefined') {
+      console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")
+      // Use Mist/MetaMask's provider
+      self.web3 = new Web3(web3.currentProvider);
+    } else {
+      console.warn("No web3 detected. Falling back to http://127.0.0.1:7545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
+      // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+      self.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+    }
+
     // Bootstrap contract abstraction for Use.
     MetaNarrativeArtifact.setProvider(self.web3.currentProvider);
 
+    MetaNarrativeArtifact.deployed().then(function(arb) {
+        //$('option.default-arbitrator-option').val(arb.address);
+        console.log("Deployed at: " + arb.address);
+    });
 
+
+    // At the moment this connects to the account list. We want it to connect to the contract instance.  
     // Get the initial account balance so it can be displayed.
-    self.web3.eth.getAccounts(function(err, accs) {
+   /* self.web3.eth.getAccounts(function(err, accs) {
       if (err != null) {
         alert("There was an error fetching your accounts.");
         return;
@@ -28,24 +64,13 @@ module.exports = {
 
       callback(self.accounts);
 
-      // Set gas limits...
-      // THink this needs to be moved.. / fixed somewhere..
-
-      //------- self.account in particular.
-      var gasMinimum = self.web3.toWei(2, 'gwei');
-      MetaNarrativeArtifact.defaults({
-            from: self.account,
-            gas: 4712388,
-            gasPrice: gasMinimum
-        });
-      //------
-      //self.refreshNarrative();
     });
+    */
     
   },
 
 
-  refreshNarrative: function() {
+  refreshNarrative: function(callback) {
     //var metaInstance;
     var self = this;
     storyLength = 0;
@@ -67,35 +92,53 @@ module.exports = {
       console.dir(value);
       console.log("NARRATIVE LENGTH:" + value.valueOf());
   //    var balance_element = document.getElementById("balance");
-  
+        var storyData = []; 
+      // self.retrieveStoryItem(i);
   //    balance_element.innerHTML = value.valueOf();
        storyLength = value.valueOf();  
        if(storyLength > 0){
          for (var i = 0; i < storyLength; i++) {
-           this.retrieveStoryItem(i);
+           console.log(i + "why this don't work?");
+           self.retrieveStoryItem(i, function(result){
+              console.log("result!! " + result);
+              storyData.push(result);
+              if(storyData.length ==  storyLength){
+                console.dir(storyData);
+                console.log("FULL");
+                callback(storyData);
+              }
+           });
          }
        }
+
+      // console.dir(storyData);
+      // console.log("storyData:" + storyData.length);
+
+      // retturn an array here!!
+     // callback(value.valueOf());
   
     }).catch(function(e) {
       console.log(e);
-      App.setStatus("Error getting balance; see log.");
+      console.log("Error getting balance; see above log.")
+     // App.setStatus("Error getting balance; see log.");
     });
    
   },
 
-  retrieveStoryItem: function(storyItem) {
+  retrieveStoryItem: function(storyItem, callback) {
   
   /*  var metaInstance;
     var storyTemplate = $('#storyTemplate');
     var narrativeRow = $('#returnedNarrativeText');
 */
-    console.log("Retrive STORY ITEM");
+    var self = this;
+   // console.log("Reterive STORY ITEM");
     var date;
 
  //   var retrieve_code = document.getElementById("retrieveCode");
 
+// HERE. 
     MetaNarrativeArtifact.setProvider(self.web3.currentProvider);
-
     MetaNarrativeArtifact.deployed().then(function(instance) {
      
       metaInstance = instance;
@@ -113,10 +156,11 @@ module.exports = {
         minute: '2-digit'
       };
 
-      console.log("TEXT" + value[2].valueOf());
-      console.log(" DATE: " + date.toLocaleString('en-us', options));
-      console.log(" Address: " + value[3].valueOf());
+      console.log(storyItem + "TEXT" + value[2].valueOf());
+      console.log(storyItem + " DATE: " + date.toLocaleString('en-us', options));
+      console.log(storyItem + " Address: " + value[3].valueOf());
 
+      callback(value[2].valueOf());
     //  storyTemplate.find('#narrative-main-text').text(value[2].valueOf());
     //  storyTemplate.find('#narrative-main-date').text(date.toLocaleString('en-us', options));
     //  storyTemplate.find('#narrative-main-address').text(value[3].valueOf());
@@ -125,7 +169,8 @@ module.exports = {
     }).catch(function(e) {
       console.log(storyItem + " FAILED ");
       console.log(e);
-      App.setStatus("Error getting balance; see log.");
+      console.log("Error getting balance; see log.");
+     // App.setStatus("Error getting balance; see log.");
     });
      
   },
