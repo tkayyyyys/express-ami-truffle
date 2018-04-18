@@ -1,8 +1,21 @@
-
+// This is JQuery.
 $(document).ready(function () {
   var curraccount;
   var selectedAccount;
+
+
+   //const Web3 = require('web3');
+   //const truffle_connect = require('./connection/app.js');   
+
+ /*  $.post('/sendCoin', {webthreee : this.web3}, function (response) {
+     // $('#balance').text(response);
+      //$('#status').text("Sent!!");
+      console.log("response:" + response);
+    })
+*/
+
   //alert("YE");
+
  $.get('/getAccounts', function (response) {
     console.dir(" RESPONSE TO CLIENT: " + response);
     
@@ -25,6 +38,7 @@ $(document).ready(function () {
     //  $('#options').append("<option value='"+curraccount+"'>"+curraccount+"</option>");
    // }
   })
+  
   
 /*
   $('#submit').click(function () {

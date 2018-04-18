@@ -1,5 +1,5 @@
 const contract = require('truffle-contract');
-const Web3 = require('web3');
+//const Web3 = require('web3');
 
 //const metacoin_artifact = require('../build/contracts/MetaCoin.json');
 const narrative_artifact = require('../build/contracts/narrativeChainy.json');
@@ -28,7 +28,8 @@ module.exports = {
       */
 
     // Move this into client side, I think!!
-    if (typeof self.web3 !== 'undefined') {
+  
+   /*if (typeof self.web3 !== 'undefined') {
       console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")
       // Use Mist/MetaMask's provider
       self.web3 = new Web3(web3.currentProvider);
@@ -37,7 +38,9 @@ module.exports = {
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
       self.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
     }
+    */
 
+    
     // Bootstrap contract abstraction for Use.
     MetaNarrativeArtifact.setProvider(self.web3.currentProvider);
 

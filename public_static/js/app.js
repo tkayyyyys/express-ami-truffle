@@ -5,8 +5,9 @@ App = {
   contracts: {},
 
   init: function() {
-    $.getJSON('../narrativeChainy.json', function(data) {
+  /*  $.getJSON('../../build/contracts/narrativeChainy.json', function(data) {
     });
+    */
     console.log("init");
     return App.initWeb3();
   },
@@ -16,6 +17,7 @@ App = {
    // Is there an injected web3 instance?
     if (typeof web3 !== 'undefined') {
       App.web3Provider = web3.currentProvider;
+      console.log("FOUND PROVIDER");
     } else {
       // If no injected web3 instance is detected, fall back to Ganache. Fine for Dev but
       // TODO: change for PRODUCTION
@@ -26,12 +28,13 @@ App = {
     web3 = new Web3(App.web3Provider);
 
     console.log("initWeb3");
+   // return App.bindEvents();
     return App.initContract();
   },
 
    initContract: function() {
     
-     $.getJSON('narrativeChainy.json', function(data) {
+     $.getJSON('../../build/contracts/narrativeChainy.json', function(data) {
      
       var MetaNarrativeArtifact = data;
 
@@ -75,7 +78,8 @@ App = {
 
   bindEvents: function() {
    console.log("binding");
-    $(document).on('click', '.btn-contribute', App.contributeText); 
+   // $(document).on('click', '.btn-contribute', App.contributeText); 
+
     $(document).on('click', '.btn-retrieve-code', App.retrieveText); 
    },
 

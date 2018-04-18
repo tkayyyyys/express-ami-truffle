@@ -35,6 +35,27 @@
           top: 0;
           width: 200px;
        }
+
+       legend#small{
+        color:black!important;
+        margin-bottom:0!important;
+        font-size: 0.5rem!important;
+       }
+
+       legend#event-legend{
+        color:black!important;
+        margin-bottom:0!important;
+        font-size: 1.0rem!important;
+       }
+
+       div#event-container {
+        margin-left: -150px;
+       }
+
+       div#story-container{
+        color:black!important;
+        padding-left: 0px!important;
+       }
        
        .sticky-top{
         margin-top:20px!important;
@@ -47,6 +68,69 @@
           width:100%!important;
         }
 
+        div#storyTemplate-event {
+          margin-left: -50px;
+        }
+
+        div#storyTemplate{
+          margin-left: 50px;
+        }
+
+        div#story-body{
+               background: white;
+              -webkit-box-flex: 1;
+              -ms-flex: 1 1 auto;
+              flex: 1 1 auto;
+              padding: 1.25rem;
+              color:black;
+        }
+
+        div#story-date{
+              background: white;
+              margin-left: 5px;
+              margin-right: 5px;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              font-size: 8px;
+              padding-right: 0px;
+              padding-left: 2px;
+              height: 10%;
+
+           /*   -webkit-box-flex: 1;
+              -ms-flex: 1 1 auto;
+              flex: 1 1 auto;
+              padding: 1.25rem;*/
+        }
+
+        div#story-address{
+               background: white;
+              /* margin-left: 0px;
+               margin-right: 10px;
+               */
+               font-size: 8px;
+               margin-top: 20px;
+               margin-bottom: 20px;
+               padding-right: 0px;
+               padding-left: 2px;
+               height: 10%;
+            /*  -webkit-box-flex: 1;
+              -ms-flex: 1 1 auto;
+              flex: 1 1 auto;
+              padding: 1.25rem;*/
+        }
+
+        div#event-occurs {
+            background: white;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 8px;
+            padding-right: 0px;
+            padding-left: 2px;
+            height: 10%;
+          }
+
         div#link-row {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -56,6 +140,10 @@
             top-margin: 100px;
             margin-top: 86px;
             margin-bottom: 50px;
+        }
+
+        span#gas-cost-estimate {
+            color: black;
         }
 
     </style>
@@ -124,7 +212,7 @@
             <button class="btn btn-default btn-contribute" type="button">Contribute</button>
        </div>
        <div class="col-xs-6 col-sm-6 col-md-6">
-              Cost to Contribute: <span id="gas-cost-estimate"></span>
+              Cost to Contribute: <span id="gas-cost-estimate"> 0.002ETH </span>
             <!-- <br><br> -->
        </div>
    </div>
@@ -154,57 +242,163 @@
      <div id="returnedNarrativeText"> 
       <!-- RETURN NARRATIVE TEXT -->
 
+       <div class="container" id="story-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col-8" id="story-body">          
+                  <!-- <br><br> -->
+                   Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+      <div class="container" id="story-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col-8" id="story-body">          
+                  <!-- <br><br> -->
+                   Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+
+      <div class="container" id="event-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col" id="event-occurs">
+                   <legend id="event-legend">Event</legend>
+                   
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-7" id="story-body">          
+                  <!-- <br><br> -->
+                   Bitcoin Jesus is arrested and the council of Ethereum Wizards is notified.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+
+      <div class="container" id="story-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col-8" id="story-body">          
+                  <!-- <br><br> -->
+                   Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+      <div class="container" id="story-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col-8" id="story-body">          
+                  <!-- <br><br> -->
+                   Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+      <div class="container" id="event-container">
+          <!-- <div class="row"><br></div> -->
+          <div class="row" id="link-row">
+            <br>
+             <div class="col" id="event-occurs">
+                   <legend id="event-legend">Event</legend>
+                   
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-7" id="story-body">          
+                  <!-- <br><br> -->
+                   Ethereum created by teenage genius.
+       
+             </div>
+             <div class="col" id="story-date">
+                   <legend id="small">Date: </legend>
+                   20:38 Mon 16 Apr 2018
+                  <!-- <br><br> -->
+             </div>
+             <div class="col-3" id="story-address">
+              <legend id="small">Address: </legend>
+              <a href="https://etherscan.io/tx/0xdc98c6296363f659dbbf7ad1f46a6cb6b9dce58a75687ddf3e59ac4bdafd5fb6" target="_blank"> 0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE </a>
+            </div>
+         </div>
+      </div>
+
+
+
+<!--
       <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
         <div class="card-body">
-           <!-- <div class="card-header">Header</div> -->
+         
            
           <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
           <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
           
-          <!-- <strong>address:</strong> -->
-          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
+    
           <p class="card-text" id="narrative-main-text">
             Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
           </p>
         </div>
     </div>
+  -->
 
      <!-- -->
-
-     <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
-        <div class="card-body">
-           <!-- <div class="card-header">Header</div> -->
-           
-          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
-          <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
-          
-          <!-- <strong>address:</strong> -->
-          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
-          <p class="card-text" id="narrative-main-text">
-            Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
-          </p>
-        </div>
-    </div>
-    <!-- -->
-
-     <div class="card text-black bg-info mb-3" id="storyTemplate" style="display: block;">
-        <div class="card-body">
-           <!-- <div class="card-header">Header</div> -->
-           
-          <h6 class="card-subtitle mb-2 text-muted" id="narrative-main-date">20:38 Mon 16 Apr 2018</h6>
-          <h6 class="card-title align-right" id="narrative-main-address">0x70a3fF23d1faeec8cA8993cfA256Cb01F7169eAE</h6>
-          
-          <!-- <strong>address:</strong> -->
-          <!-- <strong>address:</strong><span class="narrative-main-address"></span><br/> -->
-          <p class="card-text" id="narrative-main-text">
-            Often there is an incessant desire for external validation and the comments on social media fills that need temporarily. This cycle of need requires continuous feeding. The attention is a distractor from loneliness which makes one feel valued and admired, something they do not feel often enough.
-          </p>
-        </div>
-    </div>
-
-    <!-- -->
-
-
 
 
     </div>
@@ -240,7 +434,8 @@
 <!-- </div> -->
 </div> <!-- container-->
 
-<script src="javascript/accounts.js"></script>
+<!-- <script src="javascript/accounts.js"></script> -->
+<script src="js/app.js"></script>
 
 
 </body>
