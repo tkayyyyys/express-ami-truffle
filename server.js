@@ -1,6 +1,7 @@
 var express = require("express");
 var app     = express();
 var path    = require("path");
+const port = process.env.PORT || 3000;
 
 const bodyParser = require('body-parser');
 
@@ -41,6 +42,6 @@ function getConfig(file){
 }
 
 
-app.listen(3007);
+app.listen(port);
 
-console.log("Running at Port 3007");
+console.log("Running at Port " + port);
