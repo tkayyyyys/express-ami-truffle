@@ -102,7 +102,9 @@ App = {
    
    // $('#returnedNarrativeText').remove();
    // TODO: HERE. Figure out how to clear rows..
-
+   //ERROR BELOW!
+    console.dir(App.contracts);
+    
     App.contracts.narrativeChainy.deployed().then(function(instance) {
       metaInstance = instance;
         
