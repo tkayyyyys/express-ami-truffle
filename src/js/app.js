@@ -106,6 +106,7 @@ App = {
    // TODO: HERE. Figure out how to clear rows..
    //ERROR BELOW!
 
+    console.dir(App.web3Provider);
     console.dir(App.contracts.narrativeChainy);
 
     App.contracts.narrativeChainy.deployed().then(function(instance) {
