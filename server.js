@@ -23,6 +23,11 @@ app.get('/jsoncontent',function(req,res){
   res.send(json);
 });
 
+app.get('/invisionapp.html',function(req,res){
+  //res.send("https://projects.invisionapp.com/freehand/document/7VY7sGgUi");
+  res.redirect("https://projects.invisionapp.com/freehand/document/7VY7sGgUi");
+});
+
 
 function readJsonFileSync(filepath, encoding){
 

@@ -1,6 +1,7 @@
 
 
 App = {
+  url: "https://ropsten.etherscan.io/address/",
   web3Provider: null,
   contracts: {},
 
@@ -37,7 +38,7 @@ App = {
       App.contracts.narrativeChainy.setProvider(App.web3Provider);
       
       // Defaults for browser
-      var gasMinimum = window.web3.toWei(2, 'gwei');
+      var gasMinimum = window.web3.toWei(20, 'gwei');
       App.contracts.narrativeChainy.defaults({
           //from: account,
           //gas: 4712388,
@@ -75,6 +76,7 @@ App = {
   bindEvents: function() {
    console.log("binding");
     $(document).on('click', '.btn-contribute', App.contributeText); 
+    $(document).on('click', '.btn-contribute-event', App.contributeEvent); 
    // $(document).on('click', '.btn-retrieve-code', App.retrieveText); 
    },
 
@@ -103,8 +105,9 @@ App = {
    // $('#returnedNarrativeText').remove();
    // TODO: HERE. Figure out how to clear rows..
    //ERROR BELOW!
-    console.dir(App.contracts);
-    
+
+    console.dir(App.contracts.narrativeChainy);
+
     App.contracts.narrativeChainy.deployed().then(function(instance) {
       metaInstance = instance;
         
@@ -136,25 +139,26 @@ App = {
   retrieveStoryItem: function(storyItem) {
     var metaInstance;
 
-    //var storyTemplate = $('#storyTemplate');
-    //var narrativeRow = $('#returnedNarrativeText');
+   
+    var narrativeRow = $('#returnedNarrativeText');
 
     var storyTemplate = $('#story-container');
-    var narrativeRow = $('#returnedNarrativeText');
+    var eventTemplate = $('#event-container');
 
     var date;
 
     var retrieve_code = document.getElementById("retrieveCode");
 
-
-     App.contracts.narrativeChainy.deployed().then(function(instance) {
+    App.contracts.narrativeChainy.deployed().then(function(instance) {
       metaInstance = instance;
-
        return metaInstance.getChainyAll.call(storyItem); 
+
     }).then(function(value) {
 
+      //console.dir(value);
+     
       date = new Date(value[0].valueOf() * 1000);
-      //date.format('dd-m-yy');
+    
       let options = {  
        weekday: 'long',
        year: 'numeric',
@@ -165,17 +169,30 @@ App = {
       };
 
       //console.log(" DATE: " + date.toLocaleString('en-us', options));
-
       /*
-      storyTemplate.find('#narrative-main-text').text(value[2].valueOf());
-      storyTemplate.find('#narrative-main-date').text(date.toLocaleString('en-us', options));
-      storyTemplate.find('#narrative-main-address').text(value[3].valueOf());
+          console.log("0 story type: " + value[0].valueOf());
+          console.log("1 story type: " + value[1].valueOf()); 
+          console.log("2 story type:" + value[2].valueOf());
+          console.log("3 story type:" + value[3].valueOf());
       */
-      storyTemplate.find('#story-body').text(value[2].valueOf());
-      storyTemplate.find('#story-date').text(date.toLocaleString('en-us', options));
-      storyTemplate.find('#story-address').text(value[3].valueOf());
 
-      narrativeRow.append(storyTemplate.html());
+      // should be narrative = 1, event = 2
+
+      if(value[1].valueOf() == 1){
+        storyTemplate.find('#story-body').text(value[2].valueOf());
+        storyTemplate.find('#story-date-value').text(date.toLocaleString('en-us', options));
+        storyTemplate.find('#story-address-value').text(value[3].valueOf());
+        storyTemplate.find('#story-address-value').attr("href", App.url + value[3].valueOf());
+        narrativeRow.append(storyTemplate.html());
+      } else if (value[1].valueOf() == 2){
+
+        eventTemplate.find('#event-story-body').text(value[2].valueOf());
+        eventTemplate.find('#event-story-date-value').text(date.toLocaleString('en-us', options));
+        eventTemplate.find('#event-story-address-value').text(value[3].valueOf());
+        eventTemplate.find('#event-story-address-value').attr("href", App.url + value[3].valueOf());
+        narrativeRow.append(eventTemplate.html());
+        //eventTemplate.attr('link-row', 'link-row-event');
+      } 
 
     }).catch(function(e) {
       console.log(storyItem + " FAILED ");
@@ -232,7 +249,7 @@ App = {
     }).then(function(result) {
         var gas = Number(result);
 
-        $('#gas-cost-estimate').text(App.contracts.narrativeChainy.web3.fromWei((gas * gasPrice), 'ether') + " ether");
+        $('#gas-cost-estimate').text(App.contracts.narrativeChainy.web3.fromWei((gas * gasPrice), 'ether') + " Ether");
         //console.log("gas estimation = " + gas + " units");
         //console.log("gas cost estimation = " + (gas * gasPrice) + " wei");
         //console.log("gas cost estimation = " +  App.contracts.narrativeChainy.web3.fromWei((gas * gasPrice), 'ether') + " ether");
@@ -240,6 +257,45 @@ App = {
     });
   //});
   },
+
+   contributeEvent: function() {
+    var metaInstance;
+
+    var narrativeText = document.getElementById("narrativeText");
+    console.log("Contribute Event Text : " + narrativeText.value);
+   
+    var returnCode;
+    console.log(" JSON:  " + JSON.stringify(narrativeText.value));// + " string: " + strong);
+
+    App.contracts.narrativeChainy.deployed().then(function(instance) {
+      metaInstance = instance;
+
+      // Solidity: function addChainyData(string _narrative, uint256 _type) does not return anything.
+      return metaInstance.addChainyData(JSON.stringify(narrativeText.value), 2);
+    }).then(function(value) {
+
+    // console.log("AddChainyData SUCCESS!")
+     console.log("Tx: " + value);
+     console.log("RETURNED " + value.logs[0].args.item); //res.logs[0].args.message
+     console.dir(value);
+     returnCode = value.logs[0].args.item;
+     return metaInstance.getChainyData.call(value.logs[0].args.item);
+   }).then(function(value) {
+     console.log("getChainyData SUCCESS");
+     console.log("Tx: " + value.valueOf());
+     console.dir(value);
+     return metaInstance.getNarrativeLength.call();
+   }).then(function(value) {
+      // If it's all good, let's refresh.
+      console.log("RETURNED Narrative Length:" + value.valueOf());
+      console.log("NARRATIVE Tx: " );
+      console.dir(value);
+      App.refreshNarrative();  
+   }).catch(function(e) {
+     console.log(e);
+     App.setStatus("Error in contributeText; see log.");
+   });
+  },  
 
   contributeText: function() {
     var metaInstance;
@@ -276,13 +332,8 @@ App = {
    }).catch(function(e) {
      console.log(e);
      App.setStatus("Error in contributeText; see log.");
-  });
-  
-
-
-  },
-
- 
+  });  
+},
 };
 
 
