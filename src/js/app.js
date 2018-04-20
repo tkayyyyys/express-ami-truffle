@@ -21,7 +21,7 @@ App = {
       console.log("No web3 detected. Falling back to http://localhost:7545. You should remove this fallback when you deploy live.");
       App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
     }
-    web3 = new Web3(App.web3Provider);
+    window.web3 = new Web3(App.web3Provider);
 
     //console.log("initWeb3");
     return App.initContract();
@@ -185,33 +185,6 @@ App = {
 
 
 
-  /*
-   retrieveText: function() {
-    var metaInstance;
-
-    var retrieve_code = document.getElementById("retrieveCode");
-    //console.log("retrieve_code: " + retrieve_code.value);
-
-     App.contracts.narrativeChainy.deployed().then(function(instance) {
-      metaInstance = instance;
-      return metaInstance.getChainyTimestamp.call(retrieve_code.value);
-    }).then(function(value) {
-     $('#individual-story-text').text(value.valueOf());
-     console.dir(value);
-     // balance_element.innerHTML = value.valueOf();
-      return metaInstance.getChainyData.call(storyLength);
-    }).then(function(value) {
-      $('#individual-story-text').text(value.valueOf());
-      
-    }).catch(function(e) {
-      console.log("Retrieve Story Item FAILED");
-      console.log(e);
-      App.setStatus("Error retrieveing the story item; see log.");
-    });
-  },
-  */
-
-
    calculateGas: function() {
   //TestContract.web3.eth.getGasPrice(function(error, result){ 
 
@@ -246,9 +219,6 @@ App = {
 
     console.log("Gas Price is " + gasPrice + " wei"); // "10000000000000"
 
-    // Get Contract instance
-    //TestContract.deployed().then(function(instance) {
-   
      App.contracts.narrativeChainy.deployed().then(function(instance) {
         
         metaInstance = instance;
