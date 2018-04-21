@@ -22,7 +22,7 @@ App = {
       console.log("No web3 detected. Falling back to http://localhost:7545. You should remove this fallback when you deploy live.");
       App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
     }
-    window.web3 = new Web3(App.web3Provider);
+    web3 = new Web3(App.web3Provider);
 
     //console.log("initWeb3");
     return App.initContract();
@@ -46,6 +46,8 @@ App = {
           gasPrice: gasMinimum
       });
 
+      App.refreshNarrative();
+
     });   
 
     return App.start();
@@ -65,7 +67,7 @@ App = {
         alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
         return;
       }
-      App.refreshNarrative();
+      //App.refreshNarrative();
 
       // Calculate GAS.
       App.calculateGas();
