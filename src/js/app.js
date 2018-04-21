@@ -131,13 +131,40 @@ App = {
            App.retrieveStoryItem(i);
          }
        }
+      //console.dir(App.orderedstories);
 
+       console.dir(App.orderedstories);
+       console.log("before");
+       App.orderedstories = jQuery.map(App.orderedstories, function( n, i ) {
+          console.log(" ordered n : " + n + " i " + i);
+
+          return ( i );
+        });
+        console.log("after");
+/*
+       console.dir(App.orderedstories);
+
+       App.orderedstories.sort(function(x, y){
+           // return x.date - y.date;
+           console.log(" in sort ");
+           console.dir(x);
+           return x[1].date- y[1].date;
+        });
+       console.log("After sort:");
+      console.dir(App.orderedstories);
+*/
     }).catch(function(e) {
       console.log(e);
       App.setStatus("Error getting balance; see log.");
     });
+
+    /*var el = document.getElementById('story-date');
+    var sortable = Sortable.create(el,{group: "sorting",
+      sort: true});
+      */
    
   },
+
 
   retrieveStoryItem: function(storyItem) {
     var metaInstance;
@@ -179,9 +206,21 @@ App = {
       */
 
       // should be narrative = 1, event = 2
-      // App.astory(value[2].valueOf(), date.toLocaleString('en-us', options),value[3].valueOf());
-      // console.log("ASTORY");
-      // console.dir(App.astory);
+    /*   App.astory = {"text": value[2].valueOf(), "date": value[0].valueOf(), "url": value[3].valueOf()};
+       App.orderedstories.push(App.astory);
+
+       console.dir(App.orderedstories);
+       */
+     /*  App.orderedstories = jQuery.map(App.orderedstories, function( n, i ) {
+          console.log(" ordered n : " + n + " i " + i);
+
+          return ( i );
+        });
+        */
+
+     //  console.log("ASTORY");
+     //  console.dir(App.astory);
+     
       //App.orderedstories.push(value[2].valueOf());
       // App.orderedstories.push(App.astory);
 
@@ -190,16 +229,34 @@ App = {
         storyTemplate.find('#story-date-value').text(date.toLocaleString('en-us', options));
         storyTemplate.find('#story-address-value').text(value[3].valueOf());
         storyTemplate.find('#story-address-value').attr("href", App.url + value[3].valueOf());
-        narrativeRow.append(storyTemplate.html());
+        console.dir(narrativeRow);
+        narrativeRow.sort(function asc_sort(a, b) {
+          //a.children[0].childNodes[5].innerText
+          //return ($(a).children(0).childNodes(5).innerText) < ($(b).children(0).childNodes(5).innerText) ? 1 : -1;
+         // console.log("in ASC_SORT");
+         // return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1;
+        }).append(storyTemplate.html());
+        //narrativeRow.append(storyTemplate.html());
       } else if (value[1].valueOf() == 2){
 
         eventTemplate.find('#event-story-body').text(value[2].valueOf());
         eventTemplate.find('#event-story-date-value').text(date.toLocaleString('en-us', options));
         eventTemplate.find('#event-story-address-value').text(value[3].valueOf());
-        eventTemplate.find('#event-story-address-value').attr("href", App.url + value[3].valueOf());
+        eventTemplate.find('#event-story-address-value').attr("href", App.url + value[3].valueOf()); 
         narrativeRow.append(eventTemplate.html());
+        //narrativeRow.sort(sortDescending).append(eventTemplate.html());
         //eventTemplate.attr('link-row', 'link-row-event');
       } 
+   /*   console.log("before sort");
+      narrativeRow.sort(function asc_sort(a, b) {
+        console.log("in ASC_SORT");
+        //return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1;
+        });
+      console.log("after sort");
+      */
+     // var sorted = $(".list li").sort(asc_sort);
+  //  $(".list").append(sorted);
+    
 
     }).catch(function(e) {
       console.log(storyItem + " FAILED ");
@@ -207,8 +264,23 @@ App = {
       App.setStatus("Error getting balance; see log.");
     });
      
-    // console.log("ordered list:");
-    // console.dir(App.orderedstories);
+     //console.log("ordered list:");
+     ///console.dir(App.orderedstories);
+/*      console.log("Afta");
+    App.orderedstories.sort(function(a, b) {
+         
+         // a = new Date(a.date);
+         // b = new Date(b.date);
+
+          console.log("HERE");
+          console.dir(a);
+          console.log(" a.date: " + a.date);
+          return a.date>b.date ? -1 : a.date<b.date ? 1 : 0;
+      });
+*/
+
+    // console.log("SORTED list:");
+     // console.dir(App.orderedstories);
   },
 
 
@@ -348,6 +420,13 @@ App = {
 
 $(function() {
   $(window).load(function() {
+
+    // TEST sort.
+    /*function sortDescending(a, b) {
+      var date1 = $(a).find(".ytube_date").text();
+      var date2 = $(b).find(".ytube_date").text();
+      return (date1 < date2) ? -1 : (date1 > date2) ? 1 : 0;
+    };*/
     App.init();
     // TODO: Get popover to work
     //$("[data-toggle=popover]").popover();
