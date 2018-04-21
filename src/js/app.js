@@ -4,6 +4,8 @@ App = {
   url: "https://ropsten.etherscan.io/address/",
   web3Provider: null,
   contracts: {},
+  orderedstories: [],
+  astory: [],
 
   init: function() {
     return App.initWeb3();
@@ -24,7 +26,6 @@ App = {
     }
     web3 = new Web3(App.web3Provider);
 
-    //console.log("initWeb3");
     return App.initContract();
   },
 
@@ -47,6 +48,7 @@ App = {
       });
 
       App.refreshNarrative();
+      App.calculateGas();
 
     });   
 
@@ -67,10 +69,7 @@ App = {
         alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
         return;
       }
-      //App.refreshNarrative();
 
-      // Calculate GAS.
-      App.calculateGas();
     });
      return App.bindEvents();
   },
@@ -145,7 +144,6 @@ App = {
 
    
     var narrativeRow = $('#returnedNarrativeText');
-
     var storyTemplate = $('#story-container');
     var eventTemplate = $('#event-container');
 
@@ -181,6 +179,11 @@ App = {
       */
 
       // should be narrative = 1, event = 2
+      // App.astory(value[2].valueOf(), date.toLocaleString('en-us', options),value[3].valueOf());
+      // console.log("ASTORY");
+      // console.dir(App.astory);
+      //App.orderedstories.push(value[2].valueOf());
+      // App.orderedstories.push(App.astory);
 
       if(value[1].valueOf() == 1){
         storyTemplate.find('#story-body').text(value[2].valueOf());
@@ -204,6 +207,8 @@ App = {
       App.setStatus("Error getting balance; see log.");
     });
      
+    // console.log("ordered list:");
+    // console.dir(App.orderedstories);
   },
 
 
