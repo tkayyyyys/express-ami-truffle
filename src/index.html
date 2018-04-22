@@ -225,7 +225,7 @@
     <div class="row" id="top-row">
       <br>
        <div class="col-xs-6 col-sm-6 col-md-6">          
-             <a href="print.html" onclick="window.open('invisionapp.html', 
+             <a class="text-success" href="print.html" onclick="window.open('invisionapp.html', 
                                          'newwindow', 
                                          'width=800,height=650'); 
                               return false;" id="invisionapp-popup">Click to Collaborate with Invision App</a>
@@ -234,7 +234,7 @@
        <div class="col-xs-6 col-sm-6 col-md-6 text-md-right">
             <!-- <a href=""> Archive </a> --> 
           
-            <a href= "https://ropsten.etherscan.io/address/0x639442afa44a35bdd6d2849859a4c9e48a76498a" target="_blank">View Smart Contract Network Transactions.</a>
+            <a class="text-info" href= "https://ropsten.etherscan.io/address/0x639442afa44a35bdd6d2849859a4c9e48a76498a" target="_blank">View Smart Contract Network Transactions.</a>
            
        </div>
    </div>
@@ -246,8 +246,23 @@
      </fieldset>
     
 
+    <div class="container">
+      <!-- User feedback -->
+      <p class="text-danger" style="display: none" id="processing-request">
+       Adding your contribution to the Blockchain. This may take up to 30 Seconds.
+     </p>
+     
+     <p class="text-success" style="display: none" id="processing-response">
+       Your contribution was a success! 
+     </p>
+
+      <p class="text-info" style="display: none" id="processing-again">
+       Your contribution has been added to the narrative below. 
+     </p>
+
+    </div>
+
    <div class="container">
-    <!-- <div class="row"><br></div> -->
     <div class="row" id="link-row">
       <br>
        <div class="col-xs-4 col-sm-4 col-md-4">          
@@ -271,7 +286,6 @@
        </div>
    </div>
 
-    
     
     <fieldset>
 
@@ -413,7 +427,7 @@
              <div class="col-3" id="story-address">
              
               <legend id="small">Address: </legend>
-              <a href="" id="story-address-value" target="_blank"> </a> 
+              <a class="text-success" href="" id="story-address-value" target="_blank"> </a> 
             </div>
          </div>
       </div>
@@ -435,7 +449,7 @@
              </div>
              <div class="col-3" id="event-story-address">
               <legend id="small">Sender Address: </legend>
-              <a href="" target="_blank" id="event-story-address-value"> </a>
+              <a class="text-success"  href="" target="_blank" id="event-story-address-value"> </a>
             </div>
          </div>
       </div>
@@ -445,9 +459,9 @@
 
 
 <div class="container" id="bottom">
-    There are <span class="black"><span id="balance"></span> stories saved on the <a href= "https://www.ethereum.org/" target="_blank"> Ethereum blockchain </a>.</span><br>
+    There are <span class="black"><span id="balance"></span> stories saved on the <a class="text-success" href= "https://www.ethereum.org/" target="_blank"> Ethereum blockchain </a>.</span><br>
 
-    <span id="about"><strong>What is this?</strong> This is a <a href= "https://ropsten.etherscan.io/address/0x639442afa44a35bdd6d2849859a4c9e48a76498a" target="_blank">smart contract</a> which runs on the <a href= "https://www.ethereum.org/" target="_blank">Ethereum blockchain </a> to facilitate a collaborative narrative. </span>
+    <span id="about"><strong>What is this?</strong> This is a <a class="text-success" href= "https://ropsten.etherscan.io/address/0x639442afa44a35bdd6d2849859a4c9e48a76498a" target="_blank">smart contract</a> which runs on the <a class="text-success" href= "https://www.ethereum.org/" target="_blank">Ethereum blockchain </a> to facilitate a collaborative narrative. </span>
     <br>
 
     <span id="status"></span>
@@ -458,29 +472,16 @@
 
 </div> <!-- container-->
 
-<script>
-  /*function sortDescending(a, b) {
-      console.log("sort sortDescending");
-      var date1 = $(a).find(".event-story-date-value").text();
-      var date2 = $(b).find(".event-story-date-value").text();
-      return (date1 < date2) ? -1 : (date1 > date2) ? 1 : 0;
-    };
-    */
-    /*
-    function asc_sort(a, b) {
-        console.log("in ASC_SORT");
-        //return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1;
-    }
-    */
-</script> 
-<!-- <script src="//rubaxa.github.io/Sortable/Sortable.js"></script> -->
+
 <script src="js/web3.min.js"></script>
 <script src="js/truffle-contract.js"></script> 
 <script src="js/app.js"></script>
 
+<!--
  <div class="float-xs-right sticky-bottom" id="deleb-img">
      <img class="img-responsive float-xs-right" id="deleb-logo-img" src="img/deleb.png" alt="deleb" style="width:10%;height:10%;">
 </div> 
+-->
 
 
 </body>

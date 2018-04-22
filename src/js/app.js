@@ -4,8 +4,6 @@ App = {
   url: "https://ropsten.etherscan.io/address/",
   web3Provider: null,
   contracts: {},
-  orderedstories: [],
-  astory: [],
 
   init: function() {
     return App.initWeb3();
@@ -47,7 +45,12 @@ App = {
           gasPrice: gasMinimum
       });
 
-      App.refreshNarrative();
+      //App.refreshNarrative();
+      App.refreshNarrative().then(() => {
+        console.log('refresh narrative done')
+      }).catch((e) => {
+        console.error(e)
+      })
       App.calculateGas();
 
     });   
@@ -98,75 +101,77 @@ App = {
 
   */
 
-  refreshNarrative: function() {
+  refreshNarrative: async function() {
     var metaInstance;
     storyLength = 0;
-    console.log(" ----- REFRESH ------");
-   
-   // $('#returnedNarrativeText').remove();
-   // TODO: HERE. Figure out how to clear rows..
-   //ERROR BELOW!
+  
+
+   //$("#processing-request").show();
+   $('#returnedNarrativeText').html("");
 
     console.dir(App.web3Provider);
     console.dir(App.contracts);
     console.dir(App.contracts.narrativeChainy);
 
-    App.contracts.narrativeChainy.deployed().then(function(instance) {
-      metaInstance = instance;
-        
-     // let estimatedGas = metaInstance.sign.estimateGas('arg of my function', { from: '0xAddress' });
-     // console.log("gas" + estimatedGas);
+    let instance = await App.contracts.narrativeChainy.deployed();
+    let value = await instance.getNarrativeLength.call();
 
-      return metaInstance.getNarrativeLength.call();
-    }).then(function(value) {
-
-      console.log("NARRATIVE LENGTH:" + value.valueOf());
-      var balance_element = document.getElementById("balance");
+    var balance_element = document.getElementById("balance");
   
-      balance_element.innerHTML = value.valueOf();
-      storyLength = value.valueOf();
+    balance_element.innerHTML = value.valueOf();
+    storyLength = value.valueOf();
+
+    if(storyLength > 0){
+        for (i = storyLength - 1; i >= 0; i--) {
+        
+            let value = await instance.getChainyAll.call(i).then(function (strings) {
+                 console.log("await returned " + strings[0]);
+                 var narrativeRow = $('#returnedNarrativeText');
+                 var storyTemplate = $('#story-container');
+                 var eventTemplate = $('#event-container');
+
+                 var date;
+
+                 date = new Date(strings[0].valueOf() * 1000);
     
-       if(storyLength > 0){
-         for (var i = 0; i < storyLength; i++) {
-           App.retrieveStoryItem(i);
+                let options = {  
+                 weekday: 'long',
+                 year: 'numeric',
+                 month: 'short',
+                 day: 'numeric',
+                 hour: '2-digit',
+                  minute: '2-digit'
+                };
+
+                if(strings[1].valueOf() == 1){
+                  storyTemplate.find('#story-body').text(strings[2].valueOf());
+                  storyTemplate.find('#story-date-value').text(date.toLocaleString('en-us', options));
+                  storyTemplate.find('#story-address-value').text(strings[3].valueOf());
+                  storyTemplate.find('#story-address-value').attr("href", App.url + strings[3].valueOf());
+                  console.dir(narrativeRow);
+                  narrativeRow.append(storyTemplate.html());
+                  //narrativeRow.append(storyTemplate.html());
+                } else if (strings[1].valueOf() == 2){
+
+                  eventTemplate.find('#event-story-body').text(strings[2].valueOf());
+                  eventTemplate.find('#event-story-date-value').text(date.toLocaleString('en-us', options));
+                  eventTemplate.find('#event-story-address-value').text(strings[3].valueOf());
+                  eventTemplate.find('#event-story-address-value').attr("href", App.url + strings[3].valueOf()); 
+                  narrativeRow.append(eventTemplate.html());
+                  
+                } 
+         
+          });
+
          }
-       }
-      //console.dir(App.orderedstories);
+    }
 
-       console.dir(App.orderedstories);
-       console.log("before");
-       App.orderedstories = jQuery.map(App.orderedstories, function( n, i ) {
-          console.log(" ordered n : " + n + " i " + i);
-
-          return ( i );
-        });
-        console.log("after");
-/*
-       console.dir(App.orderedstories);
-
-       App.orderedstories.sort(function(x, y){
-           // return x.date - y.date;
-           console.log(" in sort ");
-           console.dir(x);
-           return x[1].date- y[1].date;
-        });
-       console.log("After sort:");
-      console.dir(App.orderedstories);
-*/
-    }).catch(function(e) {
-      console.log(e);
-      App.setStatus("Error getting balance; see log.");
-    });
-
-    /*var el = document.getElementById('story-date');
-    var sortable = Sortable.create(el,{group: "sorting",
-      sort: true});
-      */
-   
   },
 
 
-  retrieveStoryItem: function(storyItem) {
+//async
+/*
+retrieveStoryItem: async function(storyItem) {
     var metaInstance;
 
    
@@ -178,15 +183,12 @@ App = {
 
     var retrieve_code = document.getElementById("retrieveCode");
 
-    App.contracts.narrativeChainy.deployed().then(function(instance) {
-      metaInstance = instance;
-       return metaInstance.getChainyAll.call(storyItem); 
+    console.log("retrieve async");
 
-    }).then(function(value) {
+    let instance = await App.contracts.narrativeChainy.deployed();
+    let value = await instance.getChainyAll.call(storyItem);
 
-      //console.dir(value);
-     
-      date = new Date(value[0].valueOf() * 1000);
+     date = new Date(value[0].valueOf() * 1000);
     
       let options = {  
        weekday: 'long',
@@ -197,33 +199,6 @@ App = {
         minute: '2-digit'
       };
 
-      //console.log(" DATE: " + date.toLocaleString('en-us', options));
-      /*
-          console.log("0 story type: " + value[0].valueOf());
-          console.log("1 story type: " + value[1].valueOf()); 
-          console.log("2 story type:" + value[2].valueOf());
-          console.log("3 story type:" + value[3].valueOf());
-      */
-
-      // should be narrative = 1, event = 2
-    /*   App.astory = {"text": value[2].valueOf(), "date": value[0].valueOf(), "url": value[3].valueOf()};
-       App.orderedstories.push(App.astory);
-
-       console.dir(App.orderedstories);
-       */
-     /*  App.orderedstories = jQuery.map(App.orderedstories, function( n, i ) {
-          console.log(" ordered n : " + n + " i " + i);
-
-          return ( i );
-        });
-        */
-
-     //  console.log("ASTORY");
-     //  console.dir(App.astory);
-     
-      //App.orderedstories.push(value[2].valueOf());
-      // App.orderedstories.push(App.astory);
-
       if(value[1].valueOf() == 1){
         storyTemplate.find('#story-body').text(value[2].valueOf());
         storyTemplate.find('#story-date-value').text(date.toLocaleString('en-us', options));
@@ -231,10 +206,6 @@ App = {
         storyTemplate.find('#story-address-value').attr("href", App.url + value[3].valueOf());
         console.dir(narrativeRow);
         narrativeRow.sort(function asc_sort(a, b) {
-          //a.children[0].childNodes[5].innerText
-          //return ($(a).children(0).childNodes(5).innerText) < ($(b).children(0).childNodes(5).innerText) ? 1 : -1;
-         // console.log("in ASC_SORT");
-         // return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1;
         }).append(storyTemplate.html());
         //narrativeRow.append(storyTemplate.html());
       } else if (value[1].valueOf() == 2){
@@ -244,44 +215,11 @@ App = {
         eventTemplate.find('#event-story-address-value').text(value[3].valueOf());
         eventTemplate.find('#event-story-address-value').attr("href", App.url + value[3].valueOf()); 
         narrativeRow.append(eventTemplate.html());
-        //narrativeRow.sort(sortDescending).append(eventTemplate.html());
-        //eventTemplate.attr('link-row', 'link-row-event');
+        
       } 
-   /*   console.log("before sort");
-      narrativeRow.sort(function asc_sort(a, b) {
-        console.log("in ASC_SORT");
-        //return ($(b).text().toUpperCase()) < ($(a).text().toUpperCase()) ? 1 : -1;
-        });
-      console.log("after sort");
-      */
-     // var sorted = $(".list li").sort(asc_sort);
-  //  $(".list").append(sorted);
-    
-
-    }).catch(function(e) {
-      console.log(storyItem + " FAILED ");
-      console.log(e);
-      App.setStatus("Error getting balance; see log.");
-    });
-     
-     //console.log("ordered list:");
-     ///console.dir(App.orderedstories);
-/*      console.log("Afta");
-    App.orderedstories.sort(function(a, b) {
-         
-         // a = new Date(a.date);
-         // b = new Date(b.date);
-
-          console.log("HERE");
-          console.dir(a);
-          console.log(" a.date: " + a.date);
-          return a.date>b.date ? -1 : a.date<b.date ? 1 : 0;
-      });
-*/
-
-    // console.log("SORTED list:");
-     // console.dir(App.orderedstories);
   },
+  */
+
 
 
 
@@ -347,6 +285,8 @@ App = {
    
     var returnCode;
     console.log(" JSON:  " + JSON.stringify(narrativeText.value));// + " string: " + strong);
+    $("#processing-again").hide(); 
+    $("#processing-request").show();
 
     App.contracts.narrativeChainy.deployed().then(function(instance) {
       metaInstance = instance;
@@ -354,8 +294,9 @@ App = {
       // Solidity: function addChainyData(string _narrative, uint256 _type) does not return anything.
       return metaInstance.addChainyData(JSON.stringify(narrativeText.value), 2);
     }).then(function(value) {
+    $("#processing-request").hide(); 
+    $("#processing-response").show(); 
 
-    // console.log("AddChainyData SUCCESS!")
      console.log("Tx: " + value);
      console.log("RETURNED " + value.logs[0].args.item); //res.logs[0].args.message
      console.dir(value);
@@ -371,6 +312,9 @@ App = {
       console.log("RETURNED Narrative Length:" + value.valueOf());
       console.log("NARRATIVE Tx: " );
       console.dir(value);
+
+      $("#processing-response").hide(); 
+      $("#processing-again").show(); 
       App.refreshNarrative();  
    }).catch(function(e) {
      console.log(e);
@@ -387,12 +331,20 @@ App = {
 
     console.log(" JSON:  " + JSON.stringify(narrativeText.value));// + " string: " + strong);
 
+    $("#processing-again").hide(); 
+    $("#processing-request").show();
+
+
     App.contracts.narrativeChainy.deployed().then(function(instance) {
       metaInstance = instance;
+    
 
       // Solidity: function addChainyData(string _narrative, uint256 _type) does not return anything.
       return metaInstance.addChainyData(JSON.stringify(narrativeText.value), 1);
     }).then(function(value) {
+    $("#processing-request").hide(); 
+     $("#processing-response").show(); 
+
      console.log("AddChainyData SUCCESS!")
      console.log("Tx: " + value);
      console.log("RETURNED " + value.logs[0].args.item); //res.logs[0].args.message
@@ -409,6 +361,10 @@ App = {
       console.log("RETURNED Narrative Length:" + value.valueOf());
       console.log("NARRATIVE Tx: " );
       console.dir(value);
+
+      $("#processing-response").hide(); 
+      $("#processing-again").show(); 
+
       App.refreshNarrative();  
    }).catch(function(e) {
      console.log(e);
@@ -420,13 +376,6 @@ App = {
 
 $(function() {
   $(window).load(function() {
-
-    // TEST sort.
-    /*function sortDescending(a, b) {
-      var date1 = $(a).find(".ytube_date").text();
-      var date2 = $(b).find(".ytube_date").text();
-      return (date1 < date2) ? -1 : (date1 > date2) ? 1 : 0;
-    };*/
     App.init();
     // TODO: Get popover to work
     //$("[data-toggle=popover]").popover();
